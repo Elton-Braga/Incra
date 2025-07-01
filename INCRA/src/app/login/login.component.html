@@ -1,7 +1,13 @@
 <div class="principal">
   <div class="container">
     <div class="row" id="topo">
-      <div class="col-12">GovBr</div>
+      <div class="col-12">
+        <img
+          mat-card-image
+          src="	https://sso.acesso.gov.br/assets/govbr/img/govbr.png"
+          class="imagem-govbr"
+        />
+      </div>
     </div>
     <div class="row" id="container">
       <div class="col-7">
@@ -16,15 +22,20 @@
       </div>
 
       <div class="col-5">
-        <form class="login">
+        <form
+          class="login"
+          [formGroup]="registrationForm"
+          (ngSubmit)="onSubmit()"
+        >
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input
+              formControlName="usuario"
               type="email"
               class="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              placeholder="Enter email"
+              placeholder="Informe o usuário"
             />
             <small id="emailHelp" class="form-text text-muted"
               >We'll never share your email with anyone else.</small
@@ -33,10 +44,11 @@
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input
+              formControlName="senha"
               type="password"
               class="form-control"
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder="Informe a senha"
             />
           </div>
 

@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +16,26 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email: string = '';
+  registrationForm: FormGroup;
+  usuario: string = '';
   senha: string = '';
 
-  ValidaFofrm = new FormControl({
-    email: new FormControl(''),
-    senha: new FormControl(''),
-  });
+  constructor(private fb: FormBuilder) {
+    this.registrationForm = this.fb.group({
+      usuario: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.registrationForm.valid) {
+      console.log('Form Data:', this.registrationForm.value);
+    } else {
+      console.log('Form is invalid.');
+    }
+  }
 
   ngOnInit() {
-    this.ValidaFofrm;
+    //this.registrationForm;
   }
 }
