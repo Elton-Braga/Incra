@@ -1,14 +1,5 @@
 <div class="principal">
   <div class="container">
-    <div class="row" id="topo">
-      <div class="col-12">
-        <img
-          mat-card-image
-          src="	https://sso.acesso.gov.br/assets/govbr/img/govbr.png"
-          class="imagem-govbr"
-        />
-      </div>
-    </div>
     <div class="row" id="container">
       <div class="col-7">
         <div mat-card-image></div>
@@ -30,7 +21,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Informe o CPF</label>
             <input
-              formControlName="usuario"
+              formControlName="cpf"
               type="text"
               mask="000.000.000-00"
               placeholder="000.000.000-00"
@@ -54,8 +45,37 @@
           </div>
 
           <button type="submit" class="btn btn-primary" id="btn-login">
-            Submit
+            Entrar
           </button>
+
+          <p>Outras opções:</p>
+          <hr />
+          <ul>
+            <li>
+              <a href="#"
+                ><i class="pi pi-building-columns">
+                  Login com seu banco SUA CONTA SERÁ PRATA</i
+                >
+              </a>
+            </li>
+            <li>
+              <i class="pi pi-qrcode">
+                <a href="#"> Login com QR code Seu</a></i
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="pi pi-mobile"> </i> certificado digital Seu
+                certificado digital</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="pi pi-cloud-upload"> </i> Certificado digital Seu
+                certificado digital em nuvem</a
+              >
+            </li>
+          </ul>
         </form>
       </div>
     </div>

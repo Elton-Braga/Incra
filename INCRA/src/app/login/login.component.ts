@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -24,12 +25,12 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 })
 export class LoginComponent {
   registrationForm: FormGroup;
-  usuario: string = '';
+  cpf: string = '';
   senha: string = '';
 
   constructor(private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
-      usuario: ['', [Validators.required, Validators.email]],
+      cpf: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -43,10 +44,14 @@ export class LoginComponent {
   }
 
   ngOnInit() {}
-}
 
-export class Usuarios {
-  usuarios = [{}];
+  get cpfUser(): AbstractControl {
+    return this.registrationForm.get('cpf')!;
+  }
+
+  get senhaUser(): AbstractControl {
+    return this.registrationForm.get('senha')!;
+  }
 }
 
 const erroAutenticacao = '';
