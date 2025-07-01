@@ -8,12 +8,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-login',
-  imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule],
+  imports: [
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  providers: [provideNgxMask()],
 })
 export class LoginComponent {
   registrationForm: FormGroup;
@@ -35,7 +42,24 @@ export class LoginComponent {
     }
   }
 
-  ngOnInit() {
-    //this.registrationForm;
-  }
+  ngOnInit() {}
 }
+
+export class Usuarios {
+  usuarios = [{}];
+}
+
+const erroAutenticacao = '';
+
+const mockUsuarios = [
+  { cpf: '111.111.111-11', senha: '123456' },
+  { cpf: '222.222.222-22', senha: 'senha123' },
+  { cpf: '333.333.333-33', senha: 'abc123' },
+  { cpf: '444.444.444-44', senha: 'qwerty' },
+  { cpf: '555.555.555-55', senha: 'admin' },
+  { cpf: '666.666.666-66', senha: 'root123' },
+  { cpf: '777.777.777-77', senha: 'senha777' },
+  { cpf: '888.888.888-88', senha: 'pass888' },
+  { cpf: '999.999.999-99', senha: 'senha999' },
+  { cpf: '000.000.000-00', senha: 'zerozero' },
+];
