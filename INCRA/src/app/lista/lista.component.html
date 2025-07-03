@@ -1,48 +1,143 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 topo">
-      <div class="p">INCRA - Modulo Beneficiário</div>
-    </div>
+<div>
+  <div class="row border">
+    <p class="text-left">Modulo Beneficiário</p>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-          <!-- Position Column -->
-          <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef>No.</th>
-            <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-          </ng-container>
+  <form calss="row">
+    <mat-form-field class="col-6">
+      <mat-label>Codigo Beneficiario</mat-label>
+      <input
+        matInput
+        #message
+        maxlength="256"
+        placeholder="Informe o código do Beneficiário"
+      />
+      <mat-hint align="start"> </mat-hint>
+    </mat-form-field>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-          </ng-container>
+    <mat-form-field class="col-6">
+      <mat-label>Codigo Projeto</mat-label>
+      <input
+        matInput
+        #message
+        maxlength="256"
+        placeholder="Informe o código do do projeto"
+      />
+      <mat-hint align="start"> </mat-hint>
+    </mat-form-field>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="weight">
-            <th mat-header-cell *matHeaderCellDef>Weight</th>
-            <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-          </ng-container>
+    <mat-form-field class="col-6">
+      <mat-label>CPF</mat-label>
+      <input
+        matInput
+        #message
+        maxlength="256"
+        mask="000.000.000-00"
+        placeholder="Informe o CPF do Beneficiário"
+      />
+      <mat-hint align="start"> </mat-hint>
+    </mat-form-field>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="symbol">
-            <th mat-header-cell *matHeaderCellDef>Symbol</th>
-            <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
-          </ng-container>
+    <mat-form-field class="col-6">
+      <mat-label>Ordem</mat-label>
+      <input
+        matInput
+        #message
+        maxlength="256"
+        placeholder="Informe o número da Ordem"
+      />
+      <mat-hint align="start"> </mat-hint>
+    </mat-form-field>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+    <mat-form-field class="col-12">
+      <mat-label>Tipo de Busca</mat-label>
+      <mat-select multiple>
+        @for (tipo_busca of tipo_busca; track tipo_busca) {
+        <mat-option [value]="tipo_busca">{{ tipo_busca }}</mat-option>
+        }
+      </mat-select></mat-form-field
+    >
+    <button matButton="elevated" class="btn btn-primary col-12 btn_buscar">
+      Pesquisar
+    </button>
+    <hr />
+  </form>
+</div>
 
-        <mat-paginator
-          [pageSizeOptions]="[5, 10, 20]"
-          showFirstLastButtons
-          aria-label="Select page of periodic elements"
-        >
-        </mat-paginator>
-      </div>
+<div class="row">
+  <div class="col-11"></div>
+  <div class="col-1 ajuste_btn_exportar">
+    <button matButton [matMenuTriggerFor]="menu" class="btn btn-primary">
+      Exportar
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>CSV</button>
+      <button mat-menu-item>PDF</button>
+      <button mat-menu-item>Excel</button>
+    </mat-menu>
+  </div>
+  <div class="col-12">
+    <div class="mat-elevation-z2 p-4">
+      <table mat-table [dataSource]="dataSource" class="mat-table" matSort>
+        <!-- CPF -->
+        <ng-container matColumnDef="beneficiario">
+          <th mat-header-cell *matHeaderCellDef>Beneficiário</th>
+          <td mat-cell *matCellDef="let element">{{ element.beneficiario }}</td>
+        </ng-container>
+
+        <!-- Data -->
+        <ng-container matColumnDef="data_transferencia">
+          <th mat-header-cell *matHeaderCellDef>Data Transferência</th>
+          <td mat-cell *matCellDef="let element">
+            {{ formatarData(element.data_transferencia) }}
+          </td>
+        </ng-container>
+
+        <!-- Código -->
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef>Código</th>
+          <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+        </ng-container>
+
+        <!-- Projeto -->
+        <ng-container matColumnDef="nome_projeto">
+          <th mat-header-cell *matHeaderCellDef>Projeto</th>
+          <td mat-cell *matCellDef="let element">{{ element.nome_projeto }}</td>
+        </ng-container>
+
+        <!-- Ações -->
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                mat-menu-item
+                *ngFor="let acao of element.acoes"
+                (click)="executarAcao(acao, element)"
+              >
+                <mat-icon *ngIf="acao === 'visualizar'">visibility</mat-icon>
+                <mat-icon *ngIf="acao === 'editar'">edit</mat-icon>
+                <mat-icon *ngIf="acao === 'remover'">delete</mat-icon>
+                <span>{{ acao }}</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <!-- Linhas -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="dataSource.data.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10]"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
 </div>

@@ -15,3 +15,27 @@ table {
 .rodape {
   background-color: rgb(5, 102, 5);
 }
+
+form {
+  padding: 1rem;
+}
+table {
+  margin: 1rem;
+}
+p {
+  margin: 1rem 3rem;
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(16, 83, 160);
+}
+
+.btn_buscar {
+  margin: 1rem;
+  width: 98.5%;
+}
+
+.ajuste_btn_exportar {
+  border: 0;
+}
+
+/**primeng*/
