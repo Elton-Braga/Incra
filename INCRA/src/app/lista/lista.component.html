@@ -1,4 +1,4 @@
-<div>
+<div class="div-principal">
   <div class="row border">
     <p class="text-left">Modulo Beneficiário</p>
   </div>
@@ -70,7 +70,11 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-2">
-          <button mat-button [matMenuTriggerFor]="menu">
+          <button
+            mat-button
+            [matMenuTriggerFor]="menu"
+            [disabled]="!selection.hasValue()"
+          >
             <mat-icon class="me-1">arrow_downward</mat-icon> Exportar
           </button>
 
