@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgFor, NgIf } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-lista',
@@ -37,7 +38,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgIf,
     MatCheckboxModule,
     FormsModule,
+    NgxMaskDirective,
   ],
+  providers: [provideNgxMask()],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss',
 })
