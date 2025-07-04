@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgFor, NgIf } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @Component({
   selector: 'app-lista',
   imports: [

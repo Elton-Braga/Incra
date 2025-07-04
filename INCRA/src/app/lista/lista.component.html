@@ -66,9 +66,8 @@
 
 <div class="row">
   <div class="col-11">
-    <!--
-  <div>
-  Sticky Columns:
+    <div>
+      <!---Sticky Columns:
   <mat-button-toggle-group multiple [value]="['position', 'symbol']"
                            #stickyColumns="matButtonToggleGroup"
                            class="example-sticky-toggle-group">
@@ -76,17 +75,27 @@
     <mat-button-toggle value="name"> Name </mat-button-toggle>
     <mat-button-toggle value="weight"> Weight </mat-button-toggle>
     <mat-button-toggle value="symbol"> Symbol </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>  
-  --></div>
+  </mat-button-toggle-group>--->
+    </div>
+  </div>
   <div class="col-1 ajuste_btn_exportar">
-    <button matButton [matMenuTriggerFor]="menu" class="btn btn-primary">
-      Exportar
+    <button mat-button [matMenuTriggerFor]="menu" class="btn btn-primary">
+      <mat-icon class="me-1">file_upload</mat-icon> Exportar
     </button>
+
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>CSV</button>
-      <button mat-menu-item>PDF</button>
-      <button mat-menu-item>Excel</button>
+      <button mat-menu-item>
+        <mat-icon>table_chart</mat-icon>
+        <span>CSV</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>picture_as_pdf</mat-icon>
+        <span>PDF</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>grid_on</mat-icon>
+        <span>Excel</span>
+      </button>
     </mat-menu>
   </div>
   <div class="col-12">
