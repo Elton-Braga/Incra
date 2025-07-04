@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatFormFieldModule,
     ReactiveFormsModule,
     NgxMaskDirective,
+    RouterModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
