@@ -36,6 +36,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgFor,
     NgIf,
     MatCheckboxModule,
+    FormsModule,
   ],
   templateUrl: './lista.component.html',
   styleUrl: './lista.component.scss',
@@ -49,6 +50,20 @@ export class ListaComponent implements AfterViewInit {
     'nome_projeto',
     'acoes',
   ];
+
+  colunasDisponiveis = [
+    { chave: 'check', label: 'Selecionar', visivel: true },
+    { chave: 'beneficiario', label: 'CPF', visivel: true },
+    {
+      chave: 'data_transferencia',
+      label: 'Data de Transferência',
+      visivel: true,
+    },
+    { chave: 'codigo', label: 'Código', visivel: true },
+    { chave: 'nome_projeto', label: 'Projeto', visivel: true },
+    { chave: 'acoes', label: 'Ações', visivel: true },
+  ];
+
   dataSource = new MatTableDataSource<Beneficiario>(MOCK_BENEFICIARIOS);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selection = new SelectionModel<Beneficiario>(true, []);
@@ -73,6 +88,7 @@ export class ListaComponent implements AfterViewInit {
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.atualizarColunasVisiveis();
   }
 
   formatarData(dataNumerica: number): string {
@@ -114,6 +130,12 @@ export class ListaComponent implements AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
       row.check + 1
     }`;
+  }
+
+  atualizarColunasVisiveis() {
+    this.displayedColumns = this.colunasDisponiveis
+      .filter((c) => c.visivel)
+      .map((c) => c.chave);
   }
 }
 

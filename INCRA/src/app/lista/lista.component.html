@@ -67,15 +67,21 @@
 <div class="row">
   <div class="col-11">
     <div>
-      <!---Sticky Columns:
-  <mat-button-toggle-group multiple [value]="['position', 'symbol']"
-                           #stickyColumns="matButtonToggleGroup"
-                           class="example-sticky-toggle-group">
-    <mat-button-toggle value="position"> Position </mat-button-toggle>
-    <mat-button-toggle value="name"> Name </mat-button-toggle>
-    <mat-button-toggle value="weight"> Weight </mat-button-toggle>
-    <mat-button-toggle value="symbol"> Symbol </mat-button-toggle>
-  </mat-button-toggle-group>--->
+      <!-- Botão de dropdown para ajustar colunas -->
+      <button mat-button [matMenuTriggerFor]="menuColunas">
+        <mat-icon>view_column</mat-icon> Ajustar Colunas
+      </button>
+
+      <!-- Menu suspenso com checkboxes -->
+      <mat-menu #menuColunas="matMenu">
+        <mat-checkbox
+          *ngFor="let coluna of colunasDisponiveis"
+          [(ngModel)]="coluna.visivel"
+          (change)="atualizarColunasVisiveis()"
+        >
+          {{ coluna.label }}
+        </mat-checkbox>
+      </mat-menu>
     </div>
   </div>
   <div class="col-1 ajuste_btn_exportar">
