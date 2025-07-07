@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-4"></div>
+  <div class="card flex justify-center">
+    <p-breadcrumb
+      [model]="items"
+      [home]="home"
+      class="text-justify text-link"
+    />
+  </div>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer-fixo row">
+  <div class="col-1"></div>
+  <button class="col-1 btn btn-link" [routerLink]="['/lista']">Voltar</button>
+  <div class="col-8"></div>
+  <button class="btn btn-link col-1">Avançar</button>
+  <div class="col-1"></div>
+</footer>

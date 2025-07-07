@@ -1,9 +1,12 @@
 <div class="div-principal">
   <div class="row div-titulo">
-    <div class="col-10"><p class="text-left">Modulo Beneficiário</p></div>
+    <div class="col-10">
+      <p class="text-left text-primary">Modulo Beneficiário</p>
+    </div>
     <div class="col-2 d-flex justify-content-center align-items-center">
       <button
         class="btn btn-light btn-cadastro d-inline-flex align-items-center"
+        [routerLink]="['/novo']"
       >
         <span class="text-label">Novo Cadastro</span>
         <mat-icon class="me-1">post_add</mat-icon>
@@ -68,12 +71,18 @@
           }
         </mat-select></mat-form-field
       >
-      <button matButton="elevated" class="btn btn-light col-1 btn_buscar">
+      <button
+        matButton="elevated"
+        class="btn btn-light col-1 btn_buscar d-inline-flex align-items-center btn-cadastro"
+      >
         Pesquisar
         <mat-icon class="me-1">search</mat-icon>
       </button>
 
-      <button matButton="elevated" class="btn btn-light col-1 btn_buscar">
+      <button
+        matButton="elevated"
+        class="btn btn-light col-1 btn_buscar d-inline-flex align-items-center btn-cadastro"
+      >
         Limpar
         <mat-icon class="me-1">clear_all</mat-icon>
       </button>

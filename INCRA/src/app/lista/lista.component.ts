@@ -20,6 +20,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lista',
@@ -39,6 +40,7 @@ import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatCheckboxModule,
     FormsModule,
     NgxMaskDirective,
+    RouterLink,
   ],
   providers: [provideNgxMask()],
   templateUrl: './lista.component.html',

@@ -1,0 +1,21 @@
+.footer-fixo {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto; /* ajuste conforme necessário */
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  z-index: 1000; /* garante que fique sobreposto se necessário */
+}
+
+.text-link {
+  font-weight: bolder;
+  color: #1649f0;
+  margin: 2rem 1rem;
+}
+
+.text-link:hover {
+  font-weight: bolder;
+  color: #2553eb;
+  text-decoration: underline;
+}
