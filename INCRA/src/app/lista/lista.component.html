@@ -3,7 +3,7 @@
     <div class="col-10"><p class="text-left">Modulo Beneficiário</p></div>
     <div class="col-2 d-flex justify-content-center align-items-center">
       <button
-        class="btn btn-primary btn-cadastro d-inline-flex align-items-center"
+        class="btn btn-light btn-cadastro d-inline-flex align-items-center"
       >
         <span class="text-label">Novo Cadastro</span>
         <mat-icon class="me-1">post_add</mat-icon>
@@ -68,8 +68,14 @@
           }
         </mat-select></mat-form-field
       >
-      <button matButton="elevated" class="btn btn-primary col-12 btn_buscar">
+      <button matButton="elevated" class="btn btn-light col-1 btn_buscar">
         Pesquisar
+        <mat-icon class="me-1">search</mat-icon>
+      </button>
+
+      <button matButton="elevated" class="btn btn-light col-1 btn_buscar">
+        Limpar
+        <mat-icon class="me-1">clear_all</mat-icon>
       </button>
       <hr />
     </form>
