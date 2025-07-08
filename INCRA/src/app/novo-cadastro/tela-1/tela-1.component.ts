@@ -13,6 +13,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { ServicosService } from '../tela-1/servico/servicos.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-tela-1',
@@ -24,10 +27,12 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
   ],
   templateUrl: './tela-1.component.html',
   styleUrl: './tela-1.component.scss',
-  providers: [provideNgxMask(), provideNativeDateAdapter()],
+  providers: [provideNgxMask(), provideNativeDateAdapter(), ServicosService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tela1Component {
@@ -53,8 +58,24 @@ export class Tela1Component {
   telefone!: FormControl;
   email!: FormControl;
   numero_processo!: FormControl;
+  selectedValue!: string;
+  estados: any[] = [];
+  municipios: any[] = [];
+  codigoMunicipio: string = '';
 
-  constructor(fb: FormBuilder) {
+  foods: any[] = [
+    { value: 'steak-0', viewValue: 'Masculino' },
+    { value: 'pizza-1', viewValue: 'Feminino' },
+  ];
+
+  Estado_civil: any[] = [
+    { value: 'steak-0', viewValue: 'Casado' },
+    { value: 'pizza-1', viewValue: 'Solteiro' },
+    { value: 'steak-0', viewValue: 'Viuvo' },
+    { value: 'pizza-1', viewValue: 'Divorciado' },
+  ];
+
+  constructor(fb: FormBuilder, private localidadesService: ServicosService) {
     this.formgroup = fb.group({
       nome: ['', [Validators.required]],
       cpf: ['', [Validators.required]],
@@ -106,13 +127,57 @@ export class Tela1Component {
     this.numero_processo = this.formgroup.get('numero_processo') as FormControl;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.carregarFormularioDoLocalStorage();
+    this.localidadesService.getEstados().subscribe((estados) => {
+      this.estados = estados;
+    });
 
-  selectedValue!: string;
+    // Expor função globalmente
+    (window as any).salvarFormTela1 = () =>
+      this.salvarFormularioNoLocalStorage();
 
-  foods: any[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-  ];
+    // Carrega municípios quando o estado mudar
+
+    // Atualiza o código do município quando selecionado
+    this.formgroup
+      .get('municipio')
+      ?.valueChanges.subscribe((municipioSelecionado) => {
+        const municipio = this.municipios.find(
+          (m) => m.nome === municipioSelecionado
+        );
+        if (municipio) {
+          this.formgroup.get('cod_municipio')?.setValue(municipio.id);
+        }
+      });
+  }
+
+  salvarFormularioNoLocalStorage(): void {
+    const dados = this.formgroup.value;
+    localStorage.setItem('dadosCadastroBeneficiario', JSON.stringify(dados));
+  }
+
+  //Função para recuperar os dados ao iniciar
+  carregarFormularioDoLocalStorage(): void {
+    const dados = localStorage.getItem('dadosCadastroBeneficiario');
+    if (dados) {
+      this.formgroup.patchValue(JSON.parse(dados));
+    }
+  }
+
+  carregarMunicipios(uf: string) {
+    this.localidadesService.getMunicipiosPorUF(uf).subscribe((municipios) => {
+      this.municipios = municipios;
+    });
+  }
+
+  atualizarCodigoMunicipio(nome: string) {
+    const municipioSelecionado = this.municipios.find((m) => m.nome === nome);
+    if (municipioSelecionado) {
+      this.codigoMunicipio = municipioSelecionado.id;
+
+      // Atualiza o FormGroup com o código, mesmo que o input esteja desabilitado
+      this.formgroup.patchValue({ cod_municipio: municipioSelecionado.id });
+    }
+  }
 }

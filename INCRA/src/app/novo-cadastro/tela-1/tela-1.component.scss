@@ -27,3 +27,25 @@
 .espaco_campos {
   margin: 1.5rem 0;
 }
+h1 {
+  color: rgb(12, 71, 122);
+  font-size: 35px;
+}
+p {
+  font-size: 19px;
+  color: rgb(12, 71, 122);
+}
+
+.ajuste_plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 59px;
+  border: 2px solid #e0e0e0; // ou outra cor
+  border-radius: 1%; // para deixar redondo
+  font-size: 24px;
+  color: #57577a;
+  cursor: pointer;
+}

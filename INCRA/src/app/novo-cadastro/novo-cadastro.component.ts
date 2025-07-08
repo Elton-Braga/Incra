@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -58,6 +58,11 @@ export class NovoCadastroComponent {
   }
 
   avancar() {
+    // Tenta salvar os dados da tela atual, se houver
+    if ((window as any).salvarFormTela1) {
+      (window as any).salvarFormTela1();
+    }
+
     if (this.etapaAtualIndex < this.etapas.length - 1) {
       const rota = this.etapas[this.etapaAtualIndex + 1];
       this.router.navigate(['../' + rota], { relativeTo: this.route });
@@ -69,7 +74,7 @@ export class NovoCadastroComponent {
   }
 
   salvar() {
-    console.log('Dados salvos!');
+    console.log('Dados salvos!', this.avancar());
     // Aqui poderá chamar serviço de API, exibir snackbar etc.
   }
 }

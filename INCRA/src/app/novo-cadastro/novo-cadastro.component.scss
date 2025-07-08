@@ -5,7 +5,9 @@
   height: auto; /* ajuste conforme necessário */
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
-  z-index: 1000; /* garante que fique sobreposto se necessário */
+  z-index: 100; /* garante que fique sobreposto se necessário */
+  height: auto;
+  padding: 1.5rem 0;
 }
 
 .text-link {
@@ -22,4 +24,8 @@
 
 .ajuste-breadcramb {
   border: 0;
+}
+
+.conteudo {
+  padding-bottom: 0.02px;
 }
