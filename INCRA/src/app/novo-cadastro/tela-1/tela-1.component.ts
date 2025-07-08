@@ -68,6 +68,12 @@ export class Tela1Component {
     { value: 'pizza-1', viewValue: 'Feminino' },
   ];
 
+  tipo_identificacao: any[] = [
+    { value: 'RG', viewValue: 'Identidade Civil' },
+    { value: 'RGM', viewValue: 'Identidade Funcional Militar' },
+    { value: 'RGF', viewValue: 'Carteira de Habilitação' },
+  ];
+
   Estado_civil: any[] = [
     { value: 'steak-0', viewValue: 'Casado' },
     { value: 'pizza-1', viewValue: 'Solteiro' },
