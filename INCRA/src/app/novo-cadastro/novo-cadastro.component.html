@@ -14,27 +14,27 @@
 <footer class="footer-fixo row">
   <div class="col-1"></div>
   <button
-    class="col-1 btn btn-link"
+    class="col-1 btn-primary"
     [routerLink]="['/lista']"
     (click)="voltar()"
   >
-    Voltar
+    <strong>Voltar</strong>
   </button>
   <div class="col-8"></div>
   <button
-    class="btn btn-link col-1"
+    class="btn btn-primary col-1"
     (click)="avancar()"
     *ngIf="!ehUltimaEtapa()"
   >
-    Avançar
+    <strong>Avançar</strong>
   </button>
 
   <button
-    class="btn btn-ligth col-auto d-inline-flex align-items-center"
+    class="btn btn-primary col-auto d-inline-flex align-items-center"
     *ngIf="ehUltimaEtapa()"
     (click)="salvar()"
   >
-    <mat-icon class="me-1">done_outline</mat-icon> Salvar
+    <mat-icon class="me-1">done_outline</mat-icon> <strong>Salvar</strong>
   </button>
 
   <div class="col-1"></div>

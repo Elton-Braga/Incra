@@ -23,7 +23,7 @@ export class NovoCadastroComponent {
   items: any[] = [];
   home = { icon: 'pi pi-home', routerLink: '/inicio' };
 
-  etapas = ['tela1'];
+  etapas = ['Titular'];
   etapaAtualIndex = 0;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
