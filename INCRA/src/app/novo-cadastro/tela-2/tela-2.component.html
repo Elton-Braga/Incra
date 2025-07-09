@@ -5,7 +5,7 @@
       <p><strong>Codigo do Beneficiario:</strong> RS0193540000456</p>
     </div>
     <div class="col-3">
-      <p><strong>Titular: </strong>Joaquim José da Silva</p>
+      <p><strong>Titular: </strong>Maria Rocha da Silva</p>
     </div>
     <div class="col-4">
       <p><strong>Projeto:</strong> RS0195000</p>
@@ -13,7 +13,7 @@
     <div class="col-1"></div>
   </div>
 
-  <h1 class="titulo">Titular</h1>
+  <h1 class="titulo">Titular 2</h1>
 
   <form [formGroup]="formgroup">
     <div class="row espaco_campos">
@@ -166,7 +166,7 @@
           name="municipios"
           formControlName="municipio"
         >
-          @for (municipio of municipios; track municipio.id) {
+          @for (municipio of municipios; track municipio) {
           <mat-option [value]="municipio.nome">{{ municipio.nome }}</mat-option>
           }
         </mat-select>

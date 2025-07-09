@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  NavigationEnd,
+} from '@angular/router';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { RouterOutlet } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-novo-cadastro',
@@ -23,19 +29,21 @@ export class NovoCadastroComponent {
   items: any[] = [];
   home = { icon: 'pi pi-home', routerLink: '/inicio' };
 
-  etapas = ['Titular'];
+  etapas = ['Titular', 'Titular2'];
   etapaAtualIndex = 0;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.atualizarBreadcrumb();
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const etapa = this.route.firstChild?.snapshot.url[0]?.path;
+        this.etapaAtualIndex = this.etapas.indexOf(etapa || '');
+        this.atualizarBreadcrumb();
+      });
 
-    this.route.firstChild?.url.subscribe((urlSegment) => {
-      const etapa = urlSegment[0]?.path;
-      this.etapaAtualIndex = this.etapas.indexOf(etapa);
-      this.atualizarBreadcrumb();
-    });
+    this.atualizarBreadcrumb();
   }
 
   atualizarBreadcrumb() {
@@ -52,8 +60,11 @@ export class NovoCadastroComponent {
 
   voltar() {
     if (this.etapaAtualIndex > 0) {
-      const rota = this.etapas[this.etapaAtualIndex - 1];
-      this.router.navigate(['../' + rota], { relativeTo: this.route });
+      const rotaAnterior = this.etapas[this.etapaAtualIndex - 1];
+      this.router.navigate([rotaAnterior], { relativeTo: this.route });
+    } else {
+      // Está na primeira etapa, volta para a tela de lista
+      this.router.navigate(['/lista']);
     }
   }
 
@@ -65,7 +76,7 @@ export class NovoCadastroComponent {
 
     if (this.etapaAtualIndex < this.etapas.length - 1) {
       const rota = this.etapas[this.etapaAtualIndex + 1];
-      this.router.navigate(['../' + rota], { relativeTo: this.route });
+      this.router.navigate([rota], { relativeTo: this.route });
     }
   }
 

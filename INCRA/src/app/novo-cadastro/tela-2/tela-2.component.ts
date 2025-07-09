@@ -14,11 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { ServicosService } from '../tela-1/servico/servicos.service';
+
 import { HttpClientModule } from '@angular/common/http';
+import { ServicosService } from '../tela-2/servico/servicos.service';
 
 @Component({
-  selector: 'app-tela-1',
+  selector: 'app-tela-2',
   imports: [
     MatInputModule,
     FormsModule,
@@ -30,12 +31,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     HttpClientModule,
   ],
-  templateUrl: './tela-1.component.html',
-  styleUrl: './tela-1.component.scss',
+  templateUrl: './tela-2.component.html',
+  styleUrl: './tela-2.component.scss',
   providers: [provideNgxMask(), provideNativeDateAdapter(), ServicosService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tela1Component {
+export class Tela2Component {
   formgroup!: FormGroup;
   nome!: FormControl;
   cpf!: FormControl;
@@ -62,6 +63,10 @@ export class Tela1Component {
   estados: any[] = [];
   municipios: any[] = [];
   codigoMunicipio: string = '';
+  pais: any[] = [
+    { value: 'br', viewValue: 'Brasileiro' },
+    { value: 'outro', viewValue: 'Outro' },
+  ];
 
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Masculino' },
@@ -79,11 +84,6 @@ export class Tela1Component {
     { value: 'pizza-1', viewValue: 'Solteiro' },
     { value: 'steak-0', viewValue: 'Viuvo' },
     { value: 'pizza-1', viewValue: 'Divorciado' },
-  ];
-
-  pais: any[] = [
-    { value: 'br', viewValue: 'Brasileiro' },
-    { value: 'outro', viewValue: 'Outro' },
   ];
 
   constructor(fb: FormBuilder, private localidadesService: ServicosService) {
@@ -167,6 +167,7 @@ export class Tela1Component {
     const dados = this.formgroup.value;
     localStorage.setItem('dadosCadastroBeneficiario', JSON.stringify(dados));
   }
+
   trackBySigla(index: number, estado: any): string {
     return estado.sigla;
   }
