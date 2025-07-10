@@ -166,7 +166,7 @@
           name="municipios"
           formControlName="municipio"
         >
-          @for (municipio of municipios; track municipio.id) {
+          @for (municipio of municipios; track municipio.nome) {
           <mat-option [value]="municipio.nome">{{ municipio.nome }}</mat-option>
           }
         </mat-select>

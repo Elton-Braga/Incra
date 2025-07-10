@@ -38,11 +38,17 @@ export class NovoCadastroComponent {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        const etapa = this.route.firstChild?.snapshot.url[0]?.path;
-        this.etapaAtualIndex = this.etapas.indexOf(etapa || '');
+        // Pega a URL real da rota após o NavigationEnd
+        const currentUrl = this.router.url;
+        const partes = currentUrl.split('/');
+        const etapa = partes[partes.length - 1]; // pega a última parte da URL
+        this.etapaAtualIndex = this.etapas.indexOf(etapa);
         this.atualizarBreadcrumb();
       });
 
+    // Evita breadcrumb vazio ao carregar direto (F5)
+    const etapaInicial = this.router.url.split('/').pop();
+    this.etapaAtualIndex = this.etapas.indexOf(etapaInicial ?? '');
     this.atualizarBreadcrumb();
   }
 
