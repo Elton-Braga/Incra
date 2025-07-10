@@ -1,1 +1,70 @@
-<p>unidade-familar works!</p>
+<div class="div-principal">
+  <h1 class="titulo">Familar</h1>
+
+  <form [formGroup]="formgroup">
+    <div class="row espaco_campos">
+      <mat-form-field class="col-4">
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          @for (s_conjugal of s_conjugal; track s_conjugal) {
+          <mat-option [value]="s_conjugal.value">{{
+            s_conjugal.viewValue
+          }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-4"
+        ><mat-label>Data da União</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          formControlName="data_uniao"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button matButton matDatepickerCancel>Cancel</button>
+            <button matButton="elevated" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="col-4"
+        ><mat-label>Data da União</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datepicker2"
+          formControlName="data_uniao"
+          formControlName="data_separacao"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker2>
+          <mat-datepicker-actions>
+            <button matButton matDatepickerCancel>Cancel</button>
+            <button matButton="elevated" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <!--<mat-form-field class="col-4">
+        <mat-label>Data de separação</mat-label>
+        <input
+          class="col-4"
+          matInput
+          type="text"
+          placeholder="Informe a data de separação"
+          formControlName="data_separacao"
+        />
+      </mat-form-field>-->
+    </div>
+  </form>
+</div>

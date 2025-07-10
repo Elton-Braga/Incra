@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
-  FormGroup,
   Validators,
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-unidade-familar',
-  imports: [],
+  providers: [provideNativeDateAdapter()],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatSelectModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
   templateUrl: './unidade-familar.component.html',
   styleUrl: './unidade-familar.component.scss',
 })
@@ -27,10 +46,18 @@ export class UnidadeFamilarComponent {
   cpf_dependente!: FormControl;
   associacao_unidade_familiar!: FormControl;
 
+  s_conjugal: any[] = [
+    { value: '0', viewValue: 'Casado' },
+    { value: '1', viewValue: 'Solteiro' },
+    { value: '2', viewValue: 'Divorciado' },
+    { value: '3', viewValue: 'Viúvo' },
+    { value: '4', viewValue: 'União estável' },
+  ];
+
   constructor(private fb: FormBuilder) {
     this.formgroup = this.fb.group({
-      situacao_conjugal: ['', Validators.required],
-      data_uniao: ['', Validators.required],
+      situacao_conjugal: [],
+      data_uniao: [],
       data_separacao: [''],
       renda_familiar: ['', [Validators.required, Validators.min(0)]],
       nome_dependente: ['', Validators.required],
