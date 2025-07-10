@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -25,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDatepickerModule,
     MatButtonModule,
     MatSelectModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -54,10 +56,19 @@ export class UnidadeFamilarComponent {
     { value: '4', viewValue: 'União estável' },
   ];
 
+  t_dependente: any[] = [
+    { value: '0', viewValue: 'agregado' },
+    { value: '1', viewValue: 'Conjuge' },
+    { value: '2', viewValue: 'Pai' },
+    { value: '3', viewValue: 'Filho' },
+    { value: '4', viewValue: 'Mãe' },
+    { value: '4', viewValue: 'Outros' },
+  ];
+
   constructor(private fb: FormBuilder) {
     this.formgroup = this.fb.group({
-      situacao_conjugal: [],
-      data_uniao: [],
+      situacao_conjugal: ['', Validators.required],
+      data_uniao: ['', Validators.required],
       data_separacao: [''],
       renda_familiar: ['', [Validators.required, Validators.min(0)]],
       nome_dependente: ['', Validators.required],

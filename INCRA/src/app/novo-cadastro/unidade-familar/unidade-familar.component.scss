@@ -16,3 +16,43 @@ h1 {
 .example-form-field {
   margin-right: 20px;
 }
+
+.ajuste_plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: auto;
+  border: 1px solid #e0e0e0; // ou outra cor
+  //border-radius: 1%; // para deixar redondo
+  font-size: 24px;
+  color: #57577a;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.ajuste_plus:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: auto;
+  border: 1px solid #e0e0e0; // ou outra cor
+  //border-radius: 1%; // para deixar redondo
+  font-size: 24px;
+  color: #57577a;
+  cursor: pointer;
+  margin: 1rem;
+  background-color: #f3f3f3;
+}
+
+.dependent_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: auto;
+  font-size: 24px;
+  color: #57577a;
+  margin: 1rem;
+}
