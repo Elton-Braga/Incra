@@ -67,3 +67,23 @@ h1 {
 table {
   width: 100%;
 }
+.campos_dependentes {
+  margin: 0 0 1.5rem 0;
+}
+
+.btn_add_dependentes {
+  width: 10rem;
+}
+
+::ng-deep .mat-form-field {
+  margin-bottom: 0 !important;
+}
+
+.align-bottom-fix {
+  display: flex;
+  align-items: flex-end;
+}
+
+button {
+  margin: 0;
+}

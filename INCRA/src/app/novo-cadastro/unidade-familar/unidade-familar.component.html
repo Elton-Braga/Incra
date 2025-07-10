@@ -67,16 +67,16 @@
       </mat-form-field>
     </div>
     <div class="row">
-      <div
-        class="col-2 flex justify-center col-auto d-inline-flex align-items-center dependent_title"
-      >
+      <div class="col-2">
         <h6>Dependente</h6>
+        <!--
         <mat-icon
           class="flex justify-center card col-auto d-inline-flex align-items-center ajuste_plus"
           aria-hidden="false"
           aria-label="Example home icon"
           fontIcon="add"
         ></mat-icon>
+        -->
       </div>
 
       <div class="col-10"></div>
@@ -148,25 +148,51 @@
       </mat-form-field>
     </div>
 
-    <div class="row espaco_campos">
-      <mat-form-field class="col-6">
-        <mat-label>Associação da Unidade Familiar</mat-label>
+    <div class="row campos_dependentes">
+      <div class="col-6">
+        <button
+          type="button"
+          class="btn btn-primary align-bottom-fix"
+          (click)="adicionarDependente()"
+        >
+          <strong>Adicionar Dependente</strong>
+        </button>
+        <!--
+          <button mat-raised-button color="primary" (click)="adicionarDependente()">
+        Adicionar Dependente
+         </button>
+          -->
+      </div>
+      <div class="col-6"></div>
+    </div>
 
-        <input
-          matInput
-          type="text"
-          placeholder="Associação da Unidade Familiar"
-          formControlName="associacao_unidade_familiar"
-          class=""
-        />
-      </mat-form-field>
+    <div class="row espaco_campos">
+      <div class="col-12">
+        <mat-form-field class="w-100">
+          <mat-label>Associação da Unidade Familiar</mat-label>
+          <input
+            matInput
+            placeholder="Associação da Unidade Familiar"
+            formControlName="associacao_unidade_familiar"
+          /> </mat-form-field
+        ><button
+          type="button"
+          class="btn btn-primary align-bottom-fix"
+          [disabled]="formgroup.get('associacao_unidade_familiar')?.invalid"
+          (click)="adicionarUnidadeFamiliar()"
+        >
+          Incluir Unidade Familiar
+        </button>
+      </div>
+    </div>
+    <!--
       <mat-icon
         class="flex justify-center card col-auto d-inline-flex align-items-center ajuste_plus"
         aria-hidden="false"
         aria-label="Example home icon"
         fontIcon="add"
       ></mat-icon>
-    </div>
+      -->
   </form>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -223,7 +249,7 @@
           >
             <mat-icon *ngIf="acao === 'visualizar'">visibility</mat-icon>
             <mat-icon *ngIf="acao === 'editar'">edit</mat-icon>
-            <mat-icon *ngIf="acao === 'remover'">delete</mat-icon>
+            <mat-icon *ngIf="acao === 'e872'">delete</mat-icon>
             <span>{{ acao }}</span>
           </button>
         </mat-menu>
@@ -232,5 +258,42 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <hr />
+  <table
+    mat-table
+    [dataSource]="associacoesDataSource"
+    class="mat-elevation-z8"
+  >
+    <!-- Coluna de Associação -->
+    <ng-container matColumnDef="associacao">
+      <th mat-header-cell *matHeaderCellDef>Associação</th>
+      <td mat-cell *matCellDef="let element">{{ element.associacao }}</td>
+    </ng-container>
+
+    <!-- Coluna de Ações -->
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editarAssociacao(element)">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+          </button>
+          <button mat-menu-item (click)="removerAssociacao(element)">
+            <mat-icon>delete</mat-icon>
+            <span>Excluir</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <!-- Cabeçalho e Linhas -->
+    <tr mat-header-row *matHeaderRowDef="associacoesDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: associacoesDisplayedColumns"></tr>
   </table>
 </div>

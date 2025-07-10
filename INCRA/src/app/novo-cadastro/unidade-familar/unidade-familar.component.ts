@@ -84,7 +84,12 @@ export class UnidadeFamilarComponent {
     'acoes',
   ];
 
+  associacoesDisplayedColumns: string[] = ['associacao', 'acoes'];
+
+  associacoesDataSource: AssociacaoUnidadeFamiliar[] = [];
+
   dataSource = ELEMENT_DATA;
+  unidadesFamiliares: string[] = [];
 
   constructor(private fb: FormBuilder) {
     this.formgroup = this.fb.group({
@@ -121,9 +126,109 @@ export class UnidadeFamilarComponent {
     ) as FormControl;
   }
 
+  ngOnInit() {
+    const dadosSalvos = localStorage.getItem('dependentes');
+    this.dataSource = dadosSalvos ? JSON.parse(dadosSalvos) : [];
+
+    this.unidadesFamiliares = dadosSalvos ? JSON.parse(dadosSalvos) : [];
+
+    const armazenadas = JSON.parse(localStorage.getItem('associacoes') || '[]');
+    this.associacoesDataSource = armazenadas;
+  }
+
+  /*
+  
   executarAcao(acao: string, elemento: PeriodicElement) {
     console.log(`Ação "${acao}" executada para CPF ${elemento.nome}`);
     // Aqui você pode redirecionar, abrir modal, etc.
+  }
+  */
+
+  adicionarDependente() {
+    const novoDependente: PeriodicElement = {
+      nome: this.nome.value,
+      cpf: this.cpf_dependente.value,
+      tipo_dependente: this.tipo_dependente.value,
+      data_nasc: this.data_nascimento.value,
+      data_entrada_na_familia: this.data_na_familia.value,
+      acoes: ['editar', 'remover'],
+    };
+
+    let dependentes = JSON.parse(localStorage.getItem('dependentes') || '[]');
+    dependentes.push(novoDependente);
+    localStorage.setItem('dependentes', JSON.stringify(dependentes));
+
+    this.dataSource = dependentes;
+    this.formgroup.patchValue({
+      nome: '',
+      cpf_dependente: '',
+      tipo_dependente: '',
+      data_nascimento: '',
+      data_na_familia: '',
+    });
+  }
+
+  executarAcao(acao: string, elemento: PeriodicElement) {
+    if (acao === 'remover') {
+      let dependentes = JSON.parse(localStorage.getItem('dependentes') || '[]');
+      dependentes = dependentes.filter(
+        (dep: PeriodicElement) => dep.cpf !== elemento.cpf
+      );
+      localStorage.setItem('dependentes', JSON.stringify(dependentes));
+      this.dataSource = dependentes;
+    }
+
+    if (acao === 'editar') {
+      this.formgroup.patchValue({
+        nome: elemento.nome,
+        cpf_dependente: elemento.cpf,
+        tipo_dependente: elemento.tipo_dependente,
+        data_nascimento: elemento.data_nasc,
+        data_na_familia: elemento.data_entrada_na_familia,
+      });
+    }
+  }
+
+  adicionarUnidadeFamiliar() {
+    const valor = this.formgroup.get('associacao_unidade_familiar')?.value;
+    if (!valor) return;
+
+    const novaAssociacao = { associacao: valor };
+
+    // Adiciona ao localStorage
+    const armazenadas = JSON.parse(localStorage.getItem('associacoes') || '[]');
+    armazenadas.push(novaAssociacao);
+    localStorage.setItem('associacoes', JSON.stringify(armazenadas));
+
+    // Atualiza a tabela
+    this.associacoesDataSource = [...armazenadas];
+
+    // Limpa o campo
+    this.formgroup.get('associacao_unidade_familiar')?.reset();
+  }
+
+  editarAssociacao(element: AssociacaoUnidadeFamiliar) {
+    console.log('Editar:', element);
+    // lógica de edição opcional
+  }
+
+  removerAssociacao(element: AssociacaoUnidadeFamiliar) {
+    const armazenadas = JSON.parse(localStorage.getItem('associacoes') || '[]');
+    const atualizadas = armazenadas.filter(
+      (a: AssociacaoUnidadeFamiliar) => a.associacao !== element.associacao
+    );
+    localStorage.setItem('associacoes', JSON.stringify(atualizadas));
+    this.associacoesDataSource = [...atualizadas];
+  }
+
+  camposDependentePreenchidos(): boolean {
+    return (
+      !!this.formgroup.get('nome')?.valid &&
+      !!this.formgroup.get('cpf_dependente')?.valid &&
+      !!this.formgroup.get('data_nascimento')?.valid &&
+      !!this.formgroup.get('data_na_familia')?.valid &&
+      !!this.formgroup.get('tipo_dependente')?.valid
+    );
   }
 }
 
@@ -134,6 +239,10 @@ export interface PeriodicElement {
   data_nasc: string;
   data_entrada_na_familia: string;
   acoes: any;
+}
+
+interface AssociacaoUnidadeFamiliar {
+  associacao: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
