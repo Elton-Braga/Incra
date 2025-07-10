@@ -14,10 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-unidade-familar',
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), provideNgxMask()],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -27,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
+    NgxMaskDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
