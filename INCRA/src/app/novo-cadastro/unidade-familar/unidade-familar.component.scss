@@ -29,6 +29,8 @@ h1 {
   color: #57577a;
   cursor: pointer;
   margin: 1rem;
+
+  font-size: 24px;
 }
 
 .ajuste_plus:hover {
@@ -55,4 +57,13 @@ h1 {
   font-size: 24px;
   color: #57577a;
   margin: 1rem;
+}
+
+.largura {
+  width: 100%;
+  padding: 0;
+}
+
+table {
+  width: 100%;
 }

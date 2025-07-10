@@ -14,7 +14,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-unidade-familar',
@@ -29,6 +32,11 @@ import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatSelectModule,
     MatIconModule,
     NgxMaskDirective,
+    MatTableModule,
+    MatMenu,
+    MatMenuModule,
+    NgFor,
+    NgIf,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -67,6 +75,17 @@ export class UnidadeFamilarComponent {
     { value: '4', viewValue: 'Outros' },
   ];
 
+  displayedColumns: string[] = [
+    'nome',
+    'CPF',
+    'tipo_dependente',
+    'data_nasc',
+    'data_entrada_na_familia',
+    'acoes',
+  ];
+
+  dataSource = ELEMENT_DATA;
+
   constructor(private fb: FormBuilder) {
     this.formgroup = this.fb.group({
       situacao_conjugal: ['', Validators.required],
@@ -101,4 +120,29 @@ export class UnidadeFamilarComponent {
       'associacao_unidade_familiar'
     ) as FormControl;
   }
+
+  executarAcao(acao: string, elemento: PeriodicElement) {
+    console.log(`Ação "${acao}" executada para CPF ${elemento.nome}`);
+    // Aqui você pode redirecionar, abrir modal, etc.
+  }
 }
+
+export interface PeriodicElement {
+  nome: string;
+  cpf: string;
+  tipo_dependente: string;
+  data_nasc: string;
+  data_entrada_na_familia: string;
+  acoes: any;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {
+    nome: 'Hydrogen',
+    cpf: '000.000.000-00',
+    tipo_dependente: 'tipo de dependente',
+    data_nasc: '21/12/15',
+    data_entrada_na_familia: '12/12/12',
+    acoes: ['editar', 'excluir'],
+  },
+];
