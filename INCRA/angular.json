@@ -37,7 +37,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/",
+              "baseHref": "/Incra/",
               "budgets": [
                 {
                   "type": "initial",
