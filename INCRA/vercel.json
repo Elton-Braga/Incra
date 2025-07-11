@@ -1,7 +1,7 @@
 {
   "version": 2,
   "public": true,
-  "outputDirectory": "dist/incra/browser",
+  "outputDirectory": "dist/incra",
   "rewrites": [
     {
       "source": "/(.*)",
