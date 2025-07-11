@@ -1,9 +1,9 @@
 {
   "version": 2,
   "public": true,
+  "outputDirectory": "dist/browser",
   "rewrites": [
     {
-      "outputDirectory": "dist/browser",
       "source": "/(.*)",
       "destination": "/index.html"
     }
