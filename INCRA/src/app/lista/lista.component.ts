@@ -20,7 +20,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMaskConfig, NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lista',
@@ -40,7 +40,6 @@ import { RouterLink } from '@angular/router';
     MatCheckboxModule,
     FormsModule,
     NgxMaskDirective,
-    RouterLink,
   ],
   providers: [provideNgxMask()],
   templateUrl: './lista.component.html',
@@ -82,7 +81,7 @@ export class ListaComponent implements AfterViewInit {
   toppings = new FormControl('');
   tipo_busca: string[] = ['Nome do Beneficiario', 'Codigo do Beneficiario'];
 
-  constructor(fb: FormBuilder) {
+  constructor(private router: Router, fb: FormBuilder) {
     this.form = fb.group({
       codigo_beneficiario: [],
       codigo_projeto: [],
@@ -108,6 +107,9 @@ export class ListaComponent implements AfterViewInit {
   executarAcao(acao: string, elemento: Beneficiario) {
     console.log(`Ação "${acao}" executada para CPF ${elemento.beneficiario}`);
     // Aqui você pode redirecionar, abrir modal, etc.
+    if (acao === 'editar') {
+      this.router.navigate(['/novo']);
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
