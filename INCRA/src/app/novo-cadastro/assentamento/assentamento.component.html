@@ -10,4 +10,48 @@
     <p><strong>Projeto:</strong> RS0195000</p>
   </div>
   <div class="col-1"></div>
+  <div class="area_conteudo">
+    <form class="container-fluid px-0">
+      <div class="row gx-2">
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Nome</mat-label>
+            <input matInput disabled value="Joaquim José da Silva" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Data de homologação</mat-label>
+            <input matInput disabled value="24/10/2000" />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Situação do Assentado</mat-label>
+            <mat-select>
+              @for (situacoesAssentado of situacoesAssentado; track
+              situacoesAssentado) {
+              <mat-option [value]="situacoesAssentado.value">{{
+                situacoesAssentado.viewValue
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

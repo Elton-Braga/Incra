@@ -1,24 +1,87 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormArray,
   FormControl,
+  FormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-assentamento',
   standalone: true,
-  imports: [CommonModule],
+  providers: [provideNativeDateAdapter()],
+  imports: [
+    CommonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+  ],
   templateUrl: './assentamento.component.html',
   styleUrl: './assentamento.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssentamentoComponent {
   form!: FormGroup;
 
   /** listas dinâmicas exibidas em datatable */
+  tiposAssentamento = [
+    {
+      value: 'Projeto de Assentamento (PA)',
+      viewValue: 'Projeto de Assentamento (PA)',
+    },
+    {
+      value: 'Projeto de Assentamento Dirigido (PAD)',
+      viewValue: 'Projeto de Assentamento Dirigido (PAD)',
+    },
+    {
+      value: 'Projeto de Assentamento Estadual (PAE)',
+      viewValue: 'Projeto de Assentamento Estadual (PAE)',
+    },
+    {
+      value: 'Projeto de Assentamento Florestal (PAF)',
+      viewValue: 'Projeto de Assentamento Florestal (PAF)',
+    },
+    {
+      value: 'Projeto de Desenvolvimento Sustentável (PDS)',
+      viewValue: 'Projeto de Desenvolvimento Sustentável (PDS)',
+    },
+    {
+      value: 'Projeto de Assentamento Agroextrativista (PAEex)',
+      viewValue: 'Projeto de Assentamento Agroextrativista (PAEex)',
+    },
+    {
+      value: 'Projeto Integrado de Colonização (PIC)',
+      viewValue: 'Projeto Integrado de Colonização (PIC)',
+    },
+    {
+      value: 'Projeto de Colonização Dirigida (PCD)',
+      viewValue: 'Projeto de Colonização Dirigida (PCD)',
+    },
+  ];
+
+  situacoesAssentado = [
+    { value: 'ativo', viewValue: 'Ativo' },
+    { value: 'desligado', viewValue: 'Desligado' },
+    { value: 'falecido', viewValue: 'Falecido' },
+    { value: 'em_revisao', viewValue: 'Em Revisão' },
+    { value: 'em_analise', viewValue: 'Em Análise' },
+    { value: 'indeferido', viewValue: 'Indeferido' },
+    { value: 'regularizado', viewValue: 'Regularizado' },
+    { value: 'remanejado', viewValue: 'Remanejado' },
+    { value: 'renunciou', viewValue: 'Renunciou' },
+    { value: 'transferido', viewValue: 'Transferido' },
+  ];
+
   lotes: Lote[] = [];
   observacoes: Observacao[] = [];
 
