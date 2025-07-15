@@ -1,11 +1,157 @@
 import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-assentamento',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './assentamento.component.html',
-  styleUrl: './assentamento.component.scss'
+  styleUrl: './assentamento.component.scss',
 })
 export class AssentamentoComponent {
+  form!: FormGroup;
 
+  /** listas dinâmicas exibidas em datatable */
+  lotes: Lote[] = [];
+  observacoes: Observacao[] = [];
+
+  private readonly STORAGE_KEY = 'cadastroBenef';
+
+  constructor(private fb: FormBuilder) {}
+
+  // ---------- inicialização ----------
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      // Titular 1
+      titular_1: ['', Validators.required],
+      data_homologacao_1: ['', Validators.required],
+      situacao_1: this.fb.array([], Validators.required),
+
+      // Titular 2
+      titular_2: ['', Validators.required],
+      data_homologacao_2: ['', Validators.required],
+      situacao_2: this.fb.array([], Validators.required),
+      aptoPNRA: ['', Validators.required],
+
+      // Campos para Lote (serão limpos após inclusão)
+      tipo_lote: ['', Validators.required],
+      area_lote: [
+        '',
+        [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
+      ],
+      numero_lote: ['', Validators.required],
+      codigo_SNCR: ['', Validators.required],
+      link_mapa: ['', Validators.pattern(/^https?:\/\//i)],
+      denominacao_Gleba: ['', Validators.required],
+      denominacao_lote: ['', Validators.required],
+
+      // Campos para Observação
+      observacao: [''],
+      data_observacao: [''],
+    });
+
+    // tenta carregar do localStorage
+    const salvo = localStorage.getItem(this.STORAGE_KEY);
+    if (salvo) {
+      const { formValues, lotes, observacoes } = JSON.parse(salvo);
+      this.form.patchValue(formValues);
+      this.lotes = lotes ?? [];
+      this.observacoes = observacoes ?? [];
+    }
+  }
+
+  // ---------- getters de conveniência ----------
+  get situacao1(): FormArray {
+    return this.form.get('situacao_1') as FormArray;
+  }
+  get situacao2(): FormArray {
+    return this.form.get('situacao_2') as FormArray;
+  }
+
+  // ---------- manipulação de Titular.situação (checkbox) ----------
+  toggleSituacao(array: FormArray, valor: string): void {
+    const idx = array.value.indexOf(valor);
+    idx === -1 ? array.push(new FormControl(valor)) : array.removeAt(idx);
+  }
+
+  // ---------- inclusão de Lote ----------
+  adicionarLote(): void {
+    if (
+      this.form.get('tipo_lote')?.invalid ||
+      this.form.get('area_lote')?.invalid ||
+      this.form.get('numero_lote')?.invalid ||
+      this.form.get('codigo_SNCR')?.invalid ||
+      this.form.get('denominacao_Gleba')?.invalid ||
+      this.form.get('denominacao_lote')?.invalid
+    ) {
+      return;
+    }
+
+    const lote: Lote = {
+      tipo_lote: this.form.value.tipo_lote,
+      area_lote: this.form.value.area_lote,
+      numero_lote: this.form.value.numero_lote,
+      codigo_SNCR: this.form.value.codigo_SNCR,
+      link_mapa: this.form.value.link_mapa,
+      denominacao_Gleba: this.form.value.denominacao_Gleba,
+      denominacao_lote: this.form.value.denominacao_lote,
+    };
+
+    this.lotes.push(lote);
+    this.form.patchValue({
+      tipo_lote: '',
+      area_lote: '',
+      numero_lote: '',
+      codigo_SNCR: '',
+      link_mapa: '',
+      denominacao_Gleba: '',
+      denominacao_lote: '',
+    });
+    this.salvarNoStorage();
+  }
+
+  // ---------- inclusão de Observação ----------
+  adicionarObservacao(): void {
+    const { observacao, data_observacao } = this.form.value;
+    if (!observacao?.trim() || !data_observacao) {
+      return;
+    }
+    this.observacoes.push({ observacao, data: data_observacao });
+    this.form.patchValue({ observacao: '', data_observacao: '' });
+    this.salvarNoStorage();
+  }
+
+  // ---------- persistência ----------
+  private salvarNoStorage(): void {
+    localStorage.setItem(
+      this.STORAGE_KEY,
+      JSON.stringify({
+        formValues: this.form.value,
+        lotes: this.lotes,
+        observacoes: this.observacoes,
+      })
+    );
+  }
+}
+
+interface Lote {
+  tipo_lote: string;
+  area_lote: string;
+  numero_lote: string;
+  codigo_SNCR: string;
+  link_mapa: string;
+  denominacao_Gleba: string;
+  denominacao_lote: string;
+}
+
+interface Observacao {
+  observacao: string;
+  data: string; // ISO Date
 }
