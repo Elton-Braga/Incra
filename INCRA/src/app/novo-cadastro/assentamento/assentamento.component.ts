@@ -6,6 +6,7 @@ import {
   FormArray,
   FormControl,
   FormsModule,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +28,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatDatepickerModule,
     MatRadioModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './assentamento.component.html',
   styleUrl: './assentamento.component.scss',
@@ -151,13 +153,14 @@ export class AssentamentoComponent {
       // Titular 1
       titular_1: ['', Validators.required],
       data_homologacao_1: ['', Validators.required],
-      situacao_1: this.fb.array([], Validators.required),
+      situacao_1: ['', Validators.required],
 
       // Titular 2
       titular_2: ['', Validators.required],
       data_homologacao_2: ['', Validators.required],
-      situacao_2: this.fb.array([], Validators.required),
+      situacao_2: ['', Validators.required],
       aptoPNRA: ['', Validators.required],
+      //apto: ['', Validators.required],
 
       // Campos para Lote (serão limpos após inclusão)
       tipo_lote: ['', Validators.required],
