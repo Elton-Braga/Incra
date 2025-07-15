@@ -52,7 +52,7 @@
             <input
               matInput
               [matDatepicker]="picker"
-              formControlName="data_homologacao_1"
+              formControlName="data_situacao_1"
             />
 
             <mat-datepicker-toggle
@@ -104,7 +104,7 @@
             <input
               matInput
               [matDatepicker]="picker2"
-              formControlName="data_homologacao_2"
+              formControlName="data_situacao_2"
             />
 
             <mat-datepicker-toggle
@@ -132,7 +132,12 @@
       <hr />
       <div class="row gx-2 margem_botton">
         <div class="col-3">
-          <button disabled type="button" class="btn btn-primary">
+          <button
+            (click)="adicionarLote()"
+            [disabled]="!loteControlesValidos"
+            type="button"
+            class="btn btn-primary"
+          >
             <strong>Novo Lote</strong>
           </button>
         </div>

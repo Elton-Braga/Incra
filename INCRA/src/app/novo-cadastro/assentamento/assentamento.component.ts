@@ -150,19 +150,28 @@ export class AssentamentoComponent {
   // ---------- inicialização ----------
   ngOnInit(): void {
     this.form = this.fb.group({
-      // Titular 1
-      titular_1: ['', Validators.required],
-      data_homologacao_1: ['', Validators.required],
+      titular_1: [
+        { value: 'Joaquim José da Silva', disabled: true },
+        Validators.required,
+      ],
+      data_homologacao_1: [
+        { value: new Date('1999-05-24'), disabled: true },
+        Validators.required,
+      ],
       situacao_1: ['', Validators.required],
-
-      // Titular 2
-      titular_2: ['', Validators.required],
-      data_homologacao_2: ['', Validators.required],
+      data_situacao_1: ['', Validators.required],
+      data_situacao_2: ['', Validators.required],
+      titular_2: [
+        { value: 'Maria Rocha da Silva', disabled: true },
+        Validators.required,
+      ],
+      data_homologacao_2: [
+        { value: new Date('2005-04-27'), disabled: true },
+        Validators.required,
+      ],
       situacao_2: ['', Validators.required],
       aptoPNRA: ['', Validators.required],
-      //apto: ['', Validators.required],
 
-      // Campos para Lote (serão limpos após inclusão)
       tipo_lote: ['', Validators.required],
       area_lote: [
         '',
@@ -174,7 +183,6 @@ export class AssentamentoComponent {
       denominacao_Gleba: ['', Validators.required],
       denominacao_lote: ['', Validators.required],
 
-      // Campos para Observação
       observacao: [''],
       data_observacao: [''],
     });
@@ -195,6 +203,12 @@ export class AssentamentoComponent {
   }
   get situacao2(): FormArray {
     return this.form.get('situacao_2') as FormArray;
+  }
+
+  get loteControlesValidos(): boolean {
+    return ['tipo_lote', 'area_lote', 'numero_lote', 'codigo_SNCR'].every(
+      (campo) => this.form.get(campo)?.valid
+    );
   }
 
   trackByValue(index: number, item: { value: string; viewValue: string }) {
