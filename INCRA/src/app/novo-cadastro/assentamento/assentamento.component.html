@@ -30,20 +30,19 @@
           <mat-form-field class="w-100">
             <mat-label>Situação do Assentado</mat-label>
             <mat-select>
-              @for (situacoesAssentado of situacoesAssentado; track
-              situacoesAssentado) {
-              <mat-option [value]="situacoesAssentado.value">{{
-                situacoesAssentado.viewValue
-              }}</mat-option>
+              @for (situacao of situacoesAssentado; track situacao.value) {
+              <mat-option [value]="situacao.value">
+                {{ situacao.viewValue }}
+              </mat-option>
               }
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-3">
           <mat-form-field class="w-100">
-            <mat-label>Choose a date</mat-label>
+            <mat-label>Selecione a data</mat-label>
             <input matInput [matDatepicker]="picker" />
-            <mat-hint>MM/DD/YYYY</mat-hint>
+
             <mat-datepicker-toggle
               matIconSuffix
               [for]="picker"
@@ -51,6 +50,138 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
+      </div>
+
+      <div class="row gx-2">
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Nome</mat-label>
+            <input matInput disabled value="Maria Rocha da Silva" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-2">
+          <mat-form-field class="w-100">
+            <mat-label>Data de homologação</mat-label>
+            <input matInput disabled value="20/03/2005" />
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field class="w-100">
+            <mat-label>Situação do Assentado</mat-label>
+            <mat-select>
+              @for (situacao of situacoesAssentado2; track situacao.value) {
+              <mat-option [value]="situacao.value">
+                {{ situacao.viewValue }}
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field class="w-100">
+            <mat-label>Selecione a Data</mat-label>
+            <input matInput [matDatepicker]="picker2" />
+
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <label id="example-radio-group-label" class="w-100"
+            ><strong>Apto para ser beneficiario?</strong>
+          </label>
+          <mat-radio-group
+            aria-label="Apto para ser beneficiario?"
+            class="w-100"
+          >
+            <mat-radio-button value="1">Option 1</mat-radio-button>
+            <mat-radio-button value="2">Option 2</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <hr />
+      <div class="row gx-2 margem_botton">
+        <div class="col-3">
+          <button type="button" class="btn btn-primary">
+            <strong>Novo Lote</strong>
+          </button>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Tipo</mat-label>
+            <mat-select>
+              @for (tipo_lote of tipo_lote; track tipo_lote.value) {
+              <mat-option [value]="tipo_lote.value">
+                {{ tipo_lote.viewValue }}
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>Area do lote</mat-label>
+            <input matInput value="24/10/2000" />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>numero</mat-label>
+            <input matInput value="" />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="w-100">
+            <mat-label>numero do SNCR</mat-label>
+            <input matInput value="" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100">
+            <mat-label>Area de denominação da Gleba</mat-label>
+            <input matInput value="" />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="w-100">
+            <mat-label>Area de denominação do Lote</mat-label>
+            <input matInput value="" />
+          </mat-form-field>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <mat-label>Observações</mat-label>
+            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col-3">
+          <mat-form-field>
+            <mat-label>Selecione a data</mat-label>
+            <input matInput [matDatepicker]="picker3" />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker3"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-3"></div>
       </div>
     </form>
   </div>

@@ -7,12 +7,13 @@ import {
   FormControl,
   FormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-assentamento',
@@ -25,6 +26,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     FormsModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatRadioModule,
   ],
   templateUrl: './assentamento.component.html',
   styleUrl: './assentamento.component.scss',
@@ -35,6 +37,41 @@ export class AssentamentoComponent {
 
   /** listas dinâmicas exibidas em datatable */
   tiposAssentamento = [
+    {
+      value: 'Projeto de Assentamento (PA)',
+      viewValue: 'Projeto de Assentamento (PA)',
+    },
+    {
+      value: 'Projeto de Assentamento Dirigido (PAD)',
+      viewValue: 'Projeto de Assentamento Dirigido (PAD)',
+    },
+    {
+      value: 'Projeto de Assentamento Estadual (PAE)',
+      viewValue: 'Projeto de Assentamento Estadual (PAE)',
+    },
+    {
+      value: 'Projeto de Assentamento Florestal (PAF)',
+      viewValue: 'Projeto de Assentamento Florestal (PAF)',
+    },
+    {
+      value: 'Projeto de Desenvolvimento Sustentável (PDS)',
+      viewValue: 'Projeto de Desenvolvimento Sustentável (PDS)',
+    },
+    {
+      value: 'Projeto de Assentamento Agroextrativista (PAEex)',
+      viewValue: 'Projeto de Assentamento Agroextrativista (PAEex)',
+    },
+    {
+      value: 'Projeto Integrado de Colonização (PIC)',
+      viewValue: 'Projeto Integrado de Colonização (PIC)',
+    },
+    {
+      value: 'Projeto de Colonização Dirigida (PCD)',
+      viewValue: 'Projeto de Colonização Dirigida (PCD)',
+    },
+  ];
+
+  tiposAssentamento2 = [
     {
       value: 'Projeto de Assentamento (PA)',
       viewValue: 'Projeto de Assentamento (PA)',
@@ -80,6 +117,25 @@ export class AssentamentoComponent {
     { value: 'remanejado', viewValue: 'Remanejado' },
     { value: 'renunciou', viewValue: 'Renunciou' },
     { value: 'transferido', viewValue: 'Transferido' },
+  ];
+
+  situacoesAssentado2 = [
+    { value: 'ativo', viewValue: 'Ativo' },
+    { value: 'desligado', viewValue: 'Desligado' },
+    { value: 'falecido', viewValue: 'Falecido' },
+    { value: 'em_revisao', viewValue: 'Em Revisão' },
+    { value: 'em_analise', viewValue: 'Em Análise' },
+    { value: 'indeferido', viewValue: 'Indeferido' },
+    { value: 'regularizado', viewValue: 'Regularizado' },
+    { value: 'remanejado', viewValue: 'Remanejado' },
+    { value: 'renunciou', viewValue: 'Renunciou' },
+    { value: 'transferido', viewValue: 'Transferido' },
+  ];
+
+  tipo_lote = [
+    { value: 'teste1', viewValue: 'teste1' },
+    { value: 'teste2', viewValue: 'teste2' },
+    { value: 'teste3', viewValue: 'teste3' },
   ];
 
   lotes: Lote[] = [];
@@ -136,6 +192,10 @@ export class AssentamentoComponent {
   }
   get situacao2(): FormArray {
     return this.form.get('situacao_2') as FormArray;
+  }
+
+  trackByValue(index: number, item: { value: string; viewValue: string }) {
+    return item.value;
   }
 
   // ---------- manipulação de Titular.situação (checkbox) ----------
